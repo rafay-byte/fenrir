@@ -1,0 +1,586 @@
+[
+    {
+        "instruction": "How do I undo the most recent local commits in Git?",
+        "response": "You can use `git reset` to undo local commits. To remove the last commit but keep your changes in the working directory (a soft reset), use:\n```bash\ngit reset --soft HEAD~\n```\nTo remove the last commit and unstage all changes (a mixed reset), use:\n```bash\ngit reset HEAD~\n```\nTo permanently delete the last commit and all associated changes (a hard reset), use:\n```bash\ngit reset --hard HEAD~\n```"
+    },
+    {
+        "instruction": "How to make a git branch from a previous commit?",
+        "response": "You can use `git checkout` on a previous commit and then `git checkout -b` to create a new branch from there:\n\n```bash\ngit checkout <commit_id>\ngit checkout -b <new_branch_name>\n```\n\nOr, more directly:\n\n```bash\ngit branch <new_branch_name> <commit_id>\ngit checkout <new_branch_name>\n```\n\nAnd as a single command:\n\n```bash\ngit checkout -b <new_branch_name> <commit_id>\n```"
+    },
+    {
+        "instruction": "How do I activate a Python virtual environment in my shell?",
+        "response": "To activate a virtual environment (`venv`), you need to source the `activate` script located in the `bin` directory of your venv.\n\nFor bash/zsh:\n\n```bash\nsource /path/to/your/venv/bin/activate\n```\n\nFor fish:\n\n```fish\nsource /path/to/your/venv/bin/activate.fish\n```\n\nOnce activated, your shell prompt will usually change to show the name of the active environment."
+    },
+    {
+        "instruction": "How to list all files in a directory, including hidden files?",
+        "response": "Use the `-a` flag with the `ls` command:\n\n```bash\nls -a\n```\n\nFor a more detailed, long-format listing, combine it with the `-l` flag:\n\n```bash\nls -la\n```"
+    },
+    {
+        "instruction": "How can I find all files containing a specific text string on Linux?",
+        "response": "You can use the `grep` command recursively with the `-r` flag. To search for a string in the current directory and all its subdirectories, use:\n\n```bash\ngrep -r \"your_search_string\" .\n```\n\nTo make the search case-insensitive, add the `-i` flag:\n\n```bash\ngrep -ri \"your_search_string\" .\n```"
+    },
+    {
+        "instruction": "How do I create a compressed archive of a directory using tar and gzip?",
+        "response": "To create a gzipped tar archive, use the `tar` command with the `c` (create), `z` (gzip), `v` (verbose), and `f` (file) flags:\n\n```bash\ntar -czvf my_archive.tar.gz /path/to/directory\n```\n\nThis will create a file named `my_archive.tar.gz` containing the compressed contents of `/path/to/directory`."
+    },
+    {
+        "instruction": "How to revert a Git commit that has already been pushed?",
+        "response": "To revert a commit that has been pushed to a remote repository, you should use `git revert`. This command creates a new commit that undoes the changes from a previous commit.\n\n```bash\ngit revert <commit_id_to_revert>\n```\n\nAfter reverting, you can push the new commit to the remote repository:\n\n```bash\ngit push origin <your_branch_name>\n```\n\nUsing `git revert` is safer than `git reset` for shared branches because it doesn't alter the project history."
+    },
+    {
+        "instruction": "How to check the size of a directory in the command line?",
+        "response": "Use the `du` (disk usage) command with the `-h` (human-readable) and `-s` (summarize) flags:\n\n```bash\ndu -sh /path/to/directory\n```\n\nThis will display the total size of the specified directory in a human-readable format (e.g., K, M, G)."
+    },
+    {
+        "instruction": "How do I remove a directory and all its contents in Bash?",
+        "response": "To remove a directory and all the files and subdirectories within it, use the `rm` command with the `-r` (recursive) and `-f` (force) flags:\n\n```bash\nrm -rf /path/to/directory\n```\n\nBe very careful with this command, as it will permanently delete the files without confirmation."
+    },
+    {
+        "instruction": "How can I see the history of a single file in Git?",
+        "response": "To view the commit history for a specific file, use `git log` with the `--` separator followed by the file path:\n\n```bash\ngit log -- /path/to/your/file.txt\n```\n\nTo see the patches for each change, add the `-p` flag:\n\n```bash\ngit log -p -- /path/to/your/file.txt\n```"
+    },
+    {
+        "instruction": "How to extract files from a `.tar.gz` archive?",
+        "response": "To extract a `.tar.gz` file, use the `tar` command with the `x` (extract), `z` (gzip), `v` (verbose), and `f` (file) flags:\n\n```bash\ntar -xzvf your_archive.tar.gz\n```\n\nIf you want to extract the files to a specific directory, use the `-C` flag:\n\n```bash\ntar -xzvf your_archive.tar.gz -C /path/to/destination\n```"
+    },
+    {
+        "instruction": "How do I find and replace a string in multiple files in the terminal?",
+        "response": "You can combine `grep` and `sed` for this. To find files containing the string and then replace it, you can use a command like this:\n\n```bash\ngrep -rl 'old_string' . | xargs sed -i 's/old_string/new_string/g'\n```\n\n- `grep -rl 'old_string' .`: Finds all files (`-l`) recursively (`-r`) in the current directory (`.`) that contain `'old_string'`.\n- `xargs sed -i 's/old_string/new_string/g'`: For each file found, it runs `sed` to replace (`s`) all occurrences (`g`) of `'old_string'` with `'new_string'` in place (`-i`)."
+    },
+    {
+        "instruction": "How to rename a local Git branch?",
+        "response": "To rename a local Git branch, you can use the `git branch` command with the `-m` (move/rename) flag.\n\nIf you are on the branch you want to rename:\n\n```bash\ngit branch -m <new_branch_name>\n```\n\nIf you are on a different branch:\n\n```bash\ngit branch -m <old_branch_name> <new_branch_name>\n```"
+    },
+    {
+        "instruction": "How do I create a multi-line string in a Bash script?",
+        "response": "You can use a 'here document' (heredoc) to create multi-line strings in Bash.\n\n```bash\nmy_string=$(cat <<-END\nThis is the first line.\nThis is the second line.\nAnd this is the third.\nEND\n)\n\necho \"$my_string\"\n```\n\nThe `<<-` operator allows you to indent the `END` marker with tabs."
+    },
+    {
+        "instruction": "How to delete a remote Git branch?",
+        "response": "To delete a remote branch, you use `git push` with the `--delete` flag (or `-d`):\n\n```bash\ngit push origin --delete <remote_branch_name>\n```\n\nAlternatively, you can use the older syntax:\n\n```bash\ngit push origin :<remote_branch_name>\n```"
+    },
+    {
+        "instruction": "How can I count the number of lines in a file?",
+        "response": "The `wc` (word count) command with the `-l` flag is used to count the number of lines in a file.\n\n```bash\nwc -l /path/to/your/file.txt\n```"
+    },
+    {
+        "instruction": "How to create a Python virtual environment?",
+        "response": "You can create a virtual environment using the `venv` module that comes with Python 3.\n\n```bash\npython3 -m venv my_env_name\n```\n\nThis will create a new directory named `my_env_name` containing the Python interpreter, pip, and other standard library files."
+    },
+    {
+        "instruction": "How to undo the last Git commit?",
+        "response": "If the commit has not been pushed to a remote repository, you can use `git reset`.\n\nTo undo the commit but keep the changes in your working directory:\n\n```bash\ngit reset --soft HEAD~\n```\n\nTo undo the commit and unstage the changes:\n\n```bash\ngit reset HEAD~\n```\n\nTo permanently discard the changes:\n\n```bash\ngit reset --hard HEAD~\n```"
+    },
+    {
+        "instruction": "How to check which shell I am using?",
+        "response": "You can check your current shell by looking at the `$SHELL` environment variable:\n\n```bash\necho $SHELL\n```\n\nAlternatively, you can use `echo $0`, which will print the name of the currently running process (your shell)."
+    },
+    {
+        "instruction": "How to add a file to Git's staging area?",
+        "response": "Use the `git add` command followed by the file name:\n\n```bash\ngit add <file_name>\n```\n\nTo add all changed files in the current directory and subdirectories, use:\n\n```bash\ngit add .\n```"
+    },
+    {
+        "instruction": "How to create an empty file from the command line?",
+        "response": "The `touch` command is the standard way to create an empty file.\n\n```bash\ntouch my_new_file.txt\n```\n\nIf the file already exists, `touch` will update its modification timestamp without changing its content."
+    },
+    {
+        "instruction": "How to see the current git branch?",
+        "response": "To see your current branch in Git, you can use:\n\n```bash\ngit branch\n```\n\nThe current branch will be marked with an asterisk (*).\n\nFor a more concise output, especially in scripts, you can use:\n\n```bash\ngit rev-parse --abbrev-ref HEAD\n```"
+    },
+    {
+        "instruction": "How can I see a git diff with colors?",
+        "response": "Git should output diffs in color by default in modern versions. If it doesn't, you can configure it globally:\n\n```bash\ngit config --global color.ui auto\n```\n\nThis command tells Git to use color for output in commands like `git diff`, `git log`, and `git status` when writing to a terminal."
+    },
+    {
+        "instruction": "How to check the status of my git repository?",
+        "response": "To check the status of your working tree, including staged, unstaged, and untracked files, use the `git status` command:\n\n```bash\ngit status\n```\n\nFor a more compact output, you can use the short format flag:\n\n```bash\ngit status -s\n```"
+    },
+    {
+        "instruction": "How to show the commit history in git?",
+        "response": "To view the commit history, use the `git log` command:\n\n```bash\ngit log\n```\n\nFor a more condensed log with one line per commit, use:\n\n```bash\ngit log --oneline\n```\n\nTo see a graph of the branch and merge history, add the `--graph` flag:\n\n```bash\ngit log --graph --oneline --decorate --all\n```"
+    },
+    {
+        "instruction": "How to create a new directory in the command line?",
+        "response": "Use the `mkdir` command followed by the directory name:\n\n```bash\nmkdir new_directory_name\n```\n\nTo create parent directories as needed, use the `-p` flag:\n\n```bash\nmkdir -p path/to/new/directory\n```"
+    },
+    {
+        "instruction": "How to count the number of files in a directory?",
+        "response": "You can pipe the output of `ls` to `wc -l`.\n\nTo count all files and directories in the current directory:\n\n```bash\nls | wc -l\n```\n\nTo count only files, you can use `find`:\n\n```bash\nfind . -maxdepth 1 -type f | wc -l\n```"
+    },
+    {
+        "instruction": "How to see hidden files in macOS Finder?",
+        "response": "You can toggle the visibility of hidden files in macOS Finder by pressing the following key combination:\n\n`Command` + `Shift` + `.` (period)\n\nThis works on macOS Sierra and later versions."
+    },
+    {
+        "instruction": "How do I update a forked repository with the original's changes?",
+        "response": "First, you need to configure a remote that points to the original (upstream) repository:\n\n```bash\ngit remote add upstream [https://github.com/original_owner/original_repository.git](https://github.com/original_owner/original_repository.git)\n```\n\nThen, fetch the changes from the upstream repository:\n\n```bash\ngit fetch upstream\n```\n\nFinally, merge the changes from the upstream's main branch into your local main branch:\n\n```bash\ngit checkout main\ngit merge upstream/main\n```"
+    },
+    {
+        "instruction": "How to stage only part of a file in git?",
+        "response": "You can stage parts of a file interactively using `git add` with the `-p` or `--patch` flag:\n\n```bash\ngit add -p <file_name>\n```\n\nGit will show you each hunk of changes and ask if you want to stage it. You can respond with `y` (yes), `n` (no), `s` (split into smaller hunks), `q` (quit), or `?` for help."
+    },
+    {
+        "instruction": "How to search for a string within all files in a directory recursively?",
+        "response": "Use the `grep` command with the `-r` (recursive) and `-n` (show line number) flags:\n\n```bash\ngrep -rn \"search_pattern\" /path/to/directory\n```\n\nTo ignore case, add the `-i` flag:\n\n```bash\ngrep -rin \"search_pattern\" /path/to/directory\n```"
+    },
+    {
+        "instruction": "How can I run a command in the background?",
+        "response": "To run a command in the background, append an ampersand (`&`) to the end of the command:\n\n```bash\nlong-running-command &\n```\n\nThe shell will start the command and immediately return you to the prompt, printing the process ID (PID) of the background job."
+    },
+    {
+        "instruction": "How do I see the amount of free disk space?",
+        "response": "Use the `df` (disk free) command with the `-h` (human-readable) flag to see disk space usage for all mounted filesystems:\n\n```bash\ndf -h\n```"
+    },
+    {
+        "instruction": "How to checkout a remote git branch?",
+        "response": "If your local git repository is aware of the remote branch, you can simply use `git checkout`:\n\n```bash\ngit checkout <branch_name>\n```\n\nIf you want to fetch all remote branches first and then check one out, you can do:\n\n```bash\ngit fetch\ngit checkout <branch_name>\n```\n\nIf you want to create a local branch that tracks the remote branch, you can also use:\n\n```bash\ngit checkout -t origin/<branch_name>\n```"
+    },
+    {
+        "instruction": "How do I find out the process ID (PID) of a running program?",
+        "response": "You can use `ps` combined with `grep` to find the PID of a running process.\n\n```bash\nps aux | grep <program_name>\n```\n\nThe second column in the output is typically the PID. Be aware this will also show the `grep` process itself."
+    },
+    {
+        "instruction": "How to change file permissions in linux?",
+        "response": "Use the `chmod` command to change file permissions. For example, to give the owner read, write, and execute permissions, you can use:\n\n```bash\nchmod u+rwx <file_name>\n```\n\nAlternatively, you can use octal notation. To set read/write for the owner and read-only for group and others:\n\n```bash\nchmod 644 <file_name>\n```"
+    },
+    {
+        "instruction": "How to create a symbolic link?",
+        "response": "To create a symbolic link (or symlink), use the `ln` command with the `-s` flag.\n\n```bash\nln -s /path/to/original /path/to/link\n```\n\nThis creates a link at `/path/to/link` that points to `/path/to/original`."
+    },
+    {
+        "instruction": "How do I save the output of a command to a file?",
+        "response": "You can use output redirection with the `>` operator to save a command's output to a file, overwriting the file if it exists:\n\n```bash\nls -l > file_list.txt\n```\n\nTo append the output to the end of the file instead of overwriting, use the `>>` operator:\n\n```bash\nls -l >> file_list.txt\n```"
+    },
+    {
+        "instruction": "How to kill a process by its PID?",
+        "response": "Use the `kill` command followed by the Process ID (PID) of the process you want to terminate.\n\n```bash\nkill <PID>\n```\n\nIf the process doesn't terminate, you can send a `SIGKILL` signal, which cannot be ignored:\n\n```bash\nkill -9 <PID>\n```"
+    },
+    {
+        "instruction": "How to view the contents of a file?",
+        "response": "There are several commands to view a file's content:\n\n- `cat`: Prints the entire file to the standard output.\n  ```bash\n  cat filename.txt\n  ```\n- `less`: Lets you scroll through the file interactively (for long files).\n  ```bash\n  less filename.txt\n  ```\n- `more`: Similar to `less`, but less powerful.\n  ```bash\n  more filename.txt\n  ```"
+    },
+    {
+        "instruction": "How can I merge a git branch into master?",
+        "response": "First, switch to the `master` branch:\n\n```bash\ngit checkout master\n```\n\nThen, use `git merge` to merge the feature branch into `master`:\n\n```bash\ngit merge <feature_branch_name>\n```"
+    },
+    {
+        "instruction": "How to check if a port is open?",
+        "response": "You can use the `netstat` command to check for listening ports:\n\n```bash\nnetstat -tuln | grep <port_number>\n```\n\n- `t`: TCP ports\n- `u`: UDP ports\n- `l`: listening ports\n- `n`: numeric addresses\n\nAlternatively, you can use `lsof`:\n\n```bash\nlsof -i :<port_number>\n```"
+    },
+    {
+        "instruction": "How to temporarily save my current work in git?",
+        "response": "Use `git stash` to save your uncommitted changes (both staged and unstaged) on a stack, which reverts your working directory to the `HEAD` commit.\n\n```bash\ngit stash\n```\n\nTo re-apply the stashed changes later, use:\n\n```bash\ngit stash pop\n```"
+    },
+    {
+        "instruction": "How do I create a new user on Linux?",
+        "response": "You can use the `adduser` command, which is a user-friendly script for creating users.\n\n```bash\nsudo adduser <new_username>\n```\n\nThis command will create the user, their home directory, and prompt you to set a password and other user information."
+    },
+    {
+        "instruction": "How do I view the last few lines of a file?",
+        "response": "Use the `tail` command to view the end of a file. By default, it shows the last 10 lines.\n\n```bash\ntail /path/to/file.log\n```\n\nTo specify the number of lines to show, use the `-n` flag:\n\n```bash\ntail -n 100 /path/to/file.log\n```\n\nTo continuously monitor a file for new lines, use the `-f` (follow) flag:\n\n```bash\ntail -f /path/to/file.log\n```"
+    },
+    {
+        "instruction": "How to change the owner of a file or directory?",
+        "response": "Use the `chown` command to change the owner and/or group of a file or directory.\n\nTo change the owner:\n\n```bash\nsudo chown <new_owner> <file_or_directory>\n```\n\nTo change both the owner and the group:\n\n```bash\nsudo chown <new_owner>:<new_group> <file_or_directory>\n```\n\nTo change ownership recursively for a directory:\n\n```bash\nsudo chown -R <new_owner>:<new_group> /path/to/directory\n```"
+    },
+    {
+        "instruction": "How do I find my IP address from the terminal?",
+        "response": "You can use the `ip` command on modern Linux systems:\n\n```bash\nip addr show\n```\n\nAlternatively, the older `ifconfig` command can be used if it is installed:\n\n```bash\nifconfig\n```"
+    },
+    {
+        "instruction": "How do I see my command history?",
+        "response": "Use the `history` command to see a list of the commands you have previously executed in your shell session.\n\n```bash\nhistory\n```\n\nYou can re-run a command from the history by typing `!` followed by its number (e.g., `!123`)."
+    },
+    {
+        "instruction": "How to create an alias for a command?",
+        "response": "You can create a command alias using the `alias` command. The syntax is `alias name='command'`.\n\n```bash\nalias ll='ls -alF'\n```\n\nTo make the alias permanent, you need to add this line to your shell's startup file, such as `~/.bashrc` or `~/.zshrc`, and then reload the file with `source ~/.bashrc`."
+    },
+    {
+        "instruction": "How do I see which processes are using the most CPU?",
+        "response": "The `top` command provides a real-time view of running processes and system resource usage. By default, it sorts processes by CPU usage.\n\n```bash\ntop\n```\n\nAnother powerful alternative is `htop`, which offers a more user-friendly, colorized interface. You may need to install it first (`sudo apt-get install htop`)."
+    },
+    {
+        "instruction": "How to extract a .zip file?",
+        "response": "Use the `unzip` command to extract the contents of a ZIP archive.\n\n```bash\nunzip file.zip\n```\n\nThis will extract the files into the current directory. To extract to a specific destination, use the `-d` flag:\n\n```bash\nunzip file.zip -d /path/to/destination\n```"
+    },
+    {
+        "instruction": "How can I execute a script with root privileges?",
+        "response": "You can use the `sudo` (superuser do) command to execute a single command or script with root privileges.\n\n```bash\nsudo ./my_script.sh\n```\n\nYou will be prompted for your user password to authenticate."
+    },
+    {
+        "instruction": "How to compare two files from the command line?",
+        "response": "The `diff` command is used to compare two files line by line.\n\n```bash\ndiff file1.txt file2.txt\n```\n\nFor a side-by-side comparison, which can be easier to read, use the `-y` flag:\n\n```bash\ndiff -y file1.txt file2.txt\n```"
+    },
+    {
+        "instruction": "How do I search for files by name?",
+        "response": "Use the `find` command to search for files and directories.\n\nTo find a file by name in the current directory and subdirectories:\n\n```bash\nfind . -name \"filename.txt\"\n```\n\nFor a case-insensitive search, use `-iname`:\n\n```bash\nfind . -iname \"filename.txt\"\n```"
+    },
+    {
+        "instruction": "How to download a file from a URL using the terminal?",
+        "response": "You can use `wget` or `curl` to download files from the web.\n\nUsing `wget`:\n\n```bash\nwget [https://example.com/file_to_download.zip](https://example.com/file_to_download.zip)\n```\n\nUsing `curl` with the `-O` (output) flag to save to a file with the same name:\n\n```bash\ncurl -O [https://example.com/file_to_download.zip](https://example.com/file_to_download.zip)\n```"
+    },
+    {
+        "instruction": "How to set an environment variable in bash?",
+        "response": "To set an environment variable for the current session, use the `export` command:\n\n```bash\nexport MY_VARIABLE=\"some_value\"\n```\n\nTo make it permanent, add the line to your `~/.bashrc` or `~/.bash_profile` file and then reload your shell or run `source ~/.bashrc`."
+    },
+    {
+        "instruction": "How to see disk usage of files and directories?",
+        "response": "Use the `du` (disk usage) command. To see the size of each file and subdirectory in a human-readable format, use:\n\n```bash\ndu -h\n```\n\nTo get a summary for the current directory, use the `-s` flag:\n\n```bash\ndu -sh .\n```\n\nTo see the sizes of top-level directories, use:\n\n```bash\ndu -sh *\n```"
+    },
+    {
+        "instruction": "How can I create a cron job?",
+        "response": "You can edit the crontab file to add, modify, or remove cron jobs. To edit your user's crontab, run:\n\n```bash\ncrontab -e\n```\n\nA cron job entry has the format:\n`minute hour day_of_month month day_of_week command`\n\nFor example, to run `/home/user/myscript.sh` every day at 5 AM:\n`0 5 * * * /home/user/myscript.sh`"
+    },
+    {
+        "instruction": "How to copy files from a remote server to my local machine?",
+        "response": "Use the `scp` (secure copy) command. The syntax is `scp user@remotehost:/path/to/remote/file /path/to/local/destination`.\n\n```bash\nscp username@remote.server.com:/home/username/data.txt .\n```\n\nThis command copies `data.txt` from the remote server to the current directory (`.`) on your local machine."
+    },
+    {
+        "instruction": "How to check system uptime?",
+        "response": "The `uptime` command shows how long the system has been running, as well as the number of logged-in users and the system load averages.\n\n```bash\nuptime\n```"
+    },
+    {
+        "instruction": "How do I remove duplicate lines from a file?",
+        "response": "You can use `sort` and `uniq` together. `uniq` only removes adjacent duplicate lines, so you must sort the file first.\n\n```bash\nsort file.txt | uniq > unique_file.txt\n```\n\nTo count the occurrences of each line, use the `-c` flag with `uniq`:\n\n```bash\nsort file.txt | uniq -c\n```"
+    },
+    {
+        "instruction": "How to see memory usage in Linux?",
+        "response": "Use the `free` command to display the amount of free and used memory in the system. The `-h` flag makes the output human-readable.\n\n```bash\nfree -h\n```\n\nThis will show total, used, and free memory for both RAM and swap space."
+    },
+    {
+        "instruction": "How can I pipe a command's output to another command?",
+        "response": "Use the pipe operator (`|`) to send the standard output of one command to the standard input of another command.\n\nFor example, to list all files and then filter for files containing 'test':\n\n```bash\nls -l | grep 'test'\n```"
+    },
+    {
+        "instruction": "How do I change my password from the terminal?",
+        "response": "Use the `passwd` command. When run without arguments, it allows you to change your own password.\n\n```bash\npasswd\n```\n\nYou will be prompted to enter your current password and then the new password twice."
+    },
+    {
+        "instruction": "How to find files modified in the last 24 hours?",
+        "response": "Use the `find` command with the `-mtime` option. `-mtime -1` means files modified less than one day (24 hours) ago.\n\n```bash\nfind . -mtime -1\n```\n\nTo find files modified in the last 10 minutes, use `-mmin`:\n\n```bash\nfind . -mmin -10\n```"
+    },
+    {
+        "instruction": "How do I see what's in a gzipped log file without unzipping it?",
+        "response": "You can use `zcat`, `zless`, or `zgrep` to work with gzipped files directly.\n\nTo display the entire file content:\n\n```bash\nzcat file.log.gz\n```\n\nTo view it interactively with `less`:\n\n```bash\nzless file.log.gz\n```\n\nTo search for a pattern inside the file:\n\n```bash\nzgrep \"error\" file.log.gz\n```"
+    },
+    {
+        "instruction": "How to check the version of a package installed with apt?",
+        "response": "You can use `apt-cache policy` or `dpkg -s` to find the version of an installed package.\n\nUsing `apt-cache`:\n\n```bash\napt-cache policy <package_name>\n```\n\nUsing `dpkg`:\n\n```bash\ndpkg -s <package_name> | grep Version\n```"
+    },
+    {
+        "instruction": "How can I make a bash script executable?",
+        "response": "To make a script executable, you need to add execute permission using the `chmod` command.\n\n```bash\nchmod +x your_script.sh\n```\n\nAfter that, you can run the script directly from your terminal like this:\n\n```bash\n./your_script.sh\n```"
+    },
+    {
+        "instruction": "How to squash the last N commits into a single commit?",
+        "response": "You can use an interactive rebase to squash commits. To squash the last 4 commits, for example, run:\n\n```bash\ngit rebase -i HEAD~4\n```\n\nThis will open a text editor. Keep `pick` for the first commit, and change `pick` to `squash` (or `s`) for the commits you want to merge into the previous one. Save and close the editor, and you will be prompted to write a new commit message for the combined commit."
+    },
+    {
+        "instruction": "How do I restart my network interface from the command line?",
+        "response": "The method depends on your Linux distribution and network manager.\n\nUsing `ifconfig` (older method):\n\n```bash\nsudo ifconfig <interface_name> down\nsudo ifconfig <interface_name> up\n```\n\nUsing `ip` (modern method):\n\n```bash\nsudo ip link set <interface_name> down\nsudo ip link set <interface_name> up\n```\n\nUsing `systemd-networkd`:\n\n```bash\nsudo systemctl restart systemd-networkd\n```\n\nUsing `NetworkManager`:\n\n```bash\nsudo nmcli networking off\nsudo nmcli networking on\n```"
+    },
+    {
+        "instruction": "How do I list all installed packages on a Debian/Ubuntu system?",
+        "response": "You can use `dpkg` or `apt` to list all installed packages.\n\nUsing `dpkg`:\n\n```bash\ndpkg --get-selections | grep -v deinstall\n```\n\nUsing `apt` (a more user-friendly option):\n\n```bash\napt list --installed\n```"
+    },
+    {
+        "instruction": "How can I recursively copy a directory?",
+        "response": "Use the `cp` command with the `-r` or `-R` (recursive) flag to copy a directory and its contents.\n\n```bash\ncp -r /path/to/source_directory /path/to/destination\n```\n\nIf the destination directory doesn't exist, it will be created."
+    },
+    {
+        "instruction": "How to list contents of a tarball without extracting it?",
+        "response": "Use the `tar` command with the `-t` (list) flag. Combine it with `-f` to specify the file.\n\n```bash\ntar -tf archive.tar\n```\n\nIf the archive is compressed (e.g., `.tar.gz`), add the appropriate decompression flag (`-z` for gzip, `-j` for bzip2).\n\n```bash\ntar -tzf archive.tar.gz\n```"
+    },
+    {
+        "instruction": "How can I check if a remote host is reachable?",
+        "response": "The `ping` command is the standard tool for checking network connectivity to a host. It sends ICMP echo requests and waits for replies.\n\n```bash\nping google.com\n```\n\nBy default, `ping` will run continuously. Use `Ctrl+C` to stop it. To send a specific number of packets, use the `-c` flag:\n\n```bash\nping -c 4 google.com\n```"
+    },
+    {
+        "instruction": "How do I find out my public IP address?",
+        "response": "You can use `curl` or `wget` to query an external service that will return your public IP address.\n\nUsing `curl`:\n\n```bash\ncurl ifconfig.me\n```\n\nOr with `wget`:\n\n```bash\nwget -qO- ifconfig.me\n```"
+    },
+    {
+        "instruction": "How to see which shell is configured for a user?",
+        "response": "You can check the `/etc/passwd` file, which contains user account information, including the default shell.\n\n```bash\ngrep '^username:' /etc/passwd\n```\n\nThe last field in the output line is the path to the user's default shell."
+    },
+    {
+        "instruction": "How to edit a file on a remote server via SSH?",
+        "response": "The most straightforward way is to SSH into the server and use a terminal-based text editor like `nano`, `vim`, or `emacs`.\n\n1.  Connect to the server:\n    ```bash\n    ssh user@remote.server.com\n    ```\n2.  Open the file with your preferred editor:\n    ```bash\n    nano /path/to/file.txt\n    ```\n\nSome local text editors (like VS Code with the Remote - SSH extension) also allow you to edit remote files directly over an SSH connection."
+    },
+    {
+        "instruction": "How do I see which ports are listening on my system?",
+        "response": "You can use `netstat` or `ss` to list all listening sockets.\n\nUsing `netstat`:\n\n```bash\nsudo netstat -tulnp\n```\n\nUsing `ss` (the modern replacement for `netstat`):\n\n```bash\nsudo ss -tulnp\n```\n\n- `t`: TCP\n- `u`: UDP\n- `l`: listening\n- `n`: numeric (don't resolve names)\n- `p`: show process using socket"
+    },
+    {
+        "instruction": "How can I create a gzipped backup of a MySQL database?",
+        "response": "You can use `mysqldump` to create a SQL backup and pipe its output directly to `gzip` to compress it.\n\n```bash\nmysqldump -u <user> -p<password> <database_name> | gzip > backup.sql.gz\n```\n\nThis command creates a compressed backup file named `backup.sql.gz` without creating an intermediate uncompressed file."
+    },
+    {
+        "instruction": "How to remove a git submodule?",
+        "response": "Removing a submodule is a multi-step process:\n\n1.  Deinitialize the submodule:\n    ```bash\n    git submodule deinit -f path/to/submodule\n    ```\n2.  Remove the submodule's entry from the `.gitmodules` file and stage the change:\n    ```bash\n    git rm -f path/to/submodule\n    ```\n    (Git may have already handled this when you ran `deinit`)\n\n3.  Remove the submodule's directory from the `.git/modules` directory:\n    ```bash\n    rm -rf .git/modules/path/to/submodule\n    ```\n4.  Commit the changes:\n    ```bash\n    git commit -m \"Removed submodule\"\n    ```"
+    },
+    {
+        "instruction": "How to add an SSH key to a server for passwordless login?",
+        "response": "You can use the `ssh-copy-id` utility, which is designed for this purpose. It copies your public key to the remote server's `authorized_keys` file.\n\n```bash\nssh-copy-id user@remote.server.com\n```\n\nIf you don't have `ssh-copy-id`, you can do it manually:\n\n```bash\ncat ~/.ssh/id_rsa.pub | ssh user@remote.server.com 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'\n```"
+    },
+    {
+        "instruction": "How can I see environment variables?",
+        "response": "To see all environment variables currently set in your shell session, you can use the `env`, `printenv`, or `export` commands.\n\n```bash\nenv\n```\n\nOr:\n\n```bash\nprintenv\n```\n\nTo see a specific variable, use `echo`:\n\n```bash\necho $HOME\n```"
+    },
+    {
+        "instruction": "How to list USB devices from the command line?",
+        "response": "The `lsusb` command is used to display information about USB buses in the system and the devices connected to them.\n\n```bash\nlsusb\n```\n\nFor more detailed information, use the verbose `-v` flag:\n\n```bash\nlsusb -v\n```"
+    },
+    {
+        "instruction": "How can I find the path to a command executable?",
+        "response": "You can use the `which`, `whereis`, or `type` commands to find the full path of a shell command.\n\nUsing `which` (most common):\n\n```bash\nwhich ls\n```\n\nUsing `type` (a shell builtin):\n\n```bash\ntype ls\n```\n\nUsing `whereis` (also shows source and man pages):\n\n```bash\nwhereis ls\n```"
+    },
+    {
+        "instruction": "How to get the first 10 lines of a file?",
+        "response": "Use the `head` command. By default, it displays the first 10 lines of a file.\n\n```bash\nhead /path/to/file.txt\n```\n\nTo specify a different number of lines, use the `-n` flag:\n\n```bash\nhead -n 20 /path/to/file.txt\n```"
+    },
+    {
+        "instruction": "How to configure git with my name and email?",
+        "response": "You can set your name and email for Git commits using `git config`. To set them globally for all your repositories, use the `--global` flag.\n\nSet your name:\n\n```bash\ngit config --global user.name \"Your Name\"\n```\n\nSet your email:\n\n```bash\ngit config --global user.email \"youremail@example.com\"\n```"
+    },
+    {
+        "instruction": "How to resolve merge conflicts in Git?",
+        "response": "When a merge conflict occurs, Git will mark the conflicting areas in the file. \n1. Open the conflicted file(s) in a text editor.\n2. Look for the conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`).\n3. Edit the file to resolve the conflict: choose one version of the code, or combine them as needed, and remove the conflict markers.\n4. Save the file.\n5. Stage the resolved file using `git add`:\n   ```bash\n   git add <resolved_file_name>\n   ```\n6. Once all conflicts are resolved and staged, commit the merge:\n   ```bash\n   git commit\n   ```"
+    },
+    {
+        "instruction": "How do I check if a string contains a substring in Bash?",
+        "response": "You can use the `[[ ... ]]` conditional construct with a glob pattern.\n\n```bash\nstring=\"hello world\"\nsubstring=\"world\"\n\nif [[ \"$string\" == *\"$substring\"* ]]; then\n  echo \"String contains substring.\"\nelse\n  echo \"String does not contain substring.\"\nfi\n```\n\nAlternatively, you can use `grep` in quiet mode:\n\n```bash\nif echo \"$string\" | grep -q \"$substring\"; then\n  echo \"String contains substring.\"\nfi\n```"
+    },
+    {
+        "instruction": "How to create a compressed zip archive of a directory?",
+        "response": "Use the `zip` command with the `-r` (recursive) flag to include all files and subdirectories.\n\n```bash\nzip -r archive_name.zip /path/to/directory\n```\n\nThis will create a file named `archive_name.zip` containing the compressed contents of the specified directory."
+    },
+    {
+        "instruction": "How do I see my computer's kernel version?",
+        "response": "The `uname` command provides system information. To see the kernel release version, use the `-r` flag.\n\n```bash\nuname -r\n```\n\nFor all available information, including kernel name, version, machine hardware, and operating system, use the `-a` flag:\n\n```bash\nuname -a\n```"
+    },
+    {
+        "instruction": "How do I create a git tag?",
+        "response": "To create a lightweight tag, which is just a pointer to a specific commit, use `git tag`:\n\n```bash\ngit tag v1.0.0\n```\n\nFor an annotated tag, which is recommended as it includes metadata like the tagger's name, email, and date, use the `-a` flag:\n\n```bash\ngit tag -a v1.0.0 -m \"Version 1.0.0 release\"\n```\n\nBy default, `git push` does not push tags. You must push them explicitly:\n\n```bash\ngit push origin v1.0.0\n```"
+    },
+    {
+        "instruction": "How to find and delete files older than 30 days?",
+        "response": "You can combine the `find` command with its `-delete` action.\n\nTo find and delete files in `/path/to/logs` that have not been modified in over 30 days (`+30`):\n\n```bash\nfind /path/to/logs -type f -mtime +30 -delete\n```\n\nIt is highly recommended to first run the command without `-delete` to see which files will be affected:\n\n```bash\nfind /path/to/logs -type f -mtime +30\n```"
+    },
+    {
+        "instruction": "How can I redirect both stdout and stderr to the same file?",
+        "response": "You can redirect both standard output (stdout) and standard error (stderr) to a file using the `&>` operator in Bash.\n\n```bash\nmycommand &> output.log\n```\n\nThe older, more portable POSIX way is to redirect stdout to the file and then redirect stderr to stdout's file descriptor (`&1`):\n\n```bash\nmycommand > output.log 2>&1\n```"
+    },
+    {
+        "instruction": "How to get a list of all users on the system?",
+        "response": "You can get a list of all users by looking at the `/etc/passwd` file. The `cut` command can be used to extract just the usernames.\n\n```bash\ncut -d: -f1 /etc/passwd\n```\n\nThis command uses a colon (`:`) as a delimiter and prints the first field, which is the username."
+    },
+    {
+        "instruction": "How do I restart a service using systemd?",
+        "response": "To restart a service managed by `systemd`, use the `systemctl` command with the `restart` action.\n\n```bash\nsudo systemctl restart <service_name>\n```\n\nFor example, to restart the Apache web server:\n\n```bash\nsudo systemctl restart apache2\n```"
+    },
+    {
+        "instruction": "How can I check if a file exists in a bash script?",
+        "response": "You can use the `-e` or `-f` test operators within a conditional `if` statement.\n\nTo check if a file or directory exists (`-e`):\n\n```bash\nif [ -e \"/path/to/your/file\" ]; then\n    echo \"File exists.\"\nfi\n```\n\nTo check specifically for a regular file (`-f`):\n\n```bash\nif [ -f \"/path/to/your/file\" ]; then\n    echo \"File is a regular file.\"\nfi\n```"
+    },
+    {
+        "instruction": "How to change the default editor for git commit messages?",
+        "response": "You can configure Git's default text editor using `git config`. For example, to set `nano` as your default editor globally:\n\n```bash\ngit config --global core.editor \"nano\"\n```\n\nReplace `\"nano\"` with your editor of choice, such as `\"vim\"` or `\"emacs\"`."
+    },
+    {
+        "instruction": "How to copy text to the clipboard from the terminal?",
+        "response": "This depends on your operating system.\n\nOn macOS, use `pbcopy`:\n\n```bash\ncat my_file.txt | pbcopy\n```\n\nOn Linux with X11, you can use `xclip` or `xsel`. You may need to install them first.\n\nUsing `xclip`:\n\n```bash\ncat my_file.txt | xclip -selection clipboard\n```"
+    },
+    {
+        "instruction": "How to perform a case-insensitive search with grep?",
+        "response": "Use the `-i` flag with the `grep` command to make the search case-insensitive.\n\n```bash\ngrep -i \"error\" /var/log/syslog\n```\n\nThis will match `error`, `Error`, `ERROR`, etc."
+    },
+    {
+        "instruction": "How do I create a shell script function?",
+        "response": "You can define a function in a Bash script using the following syntax:\n\n```bash\nmy_function() {\n    echo \"Hello from my function!\"\n    echo \"The first argument was: $1\"\n}\n\n# To call the function:\nmy_function \"World\"\n```\n\nAlternatively, you can use the `function` keyword:\n\n```bash\nfunction my_other_function {\n    echo \"This also works.\"\n}\n```"
+    },
+    {
+        "instruction": "How to create a hard link?",
+        "response": "A hard link is a directory entry that associates a name with a file. Use the `ln` command without the `-s` flag to create one.\n\n```bash\nln /path/to/original_file /path/to/hard_link\n```\n\nBoth `original_file` and `hard_link` now point to the same data on the disk (the same inode). Hard links cannot span across different filesystems and usually cannot be created for directories."
+    },
+    {
+        "instruction": "How to see how long a command takes to run?",
+        "response": "You can prefix any command with the `time` command to measure its execution duration.\n\n```bash\ntime sleep 2\n```\n\nAfter the command finishes, `time` will print the real, user, and system time elapsed to standard error."
+    },
+    {
+        "instruction": "How to generate a large dummy file from the command line?",
+        "response": "You can use the `dd` command to create a file of a specific size.\n\nTo create a 1GB file filled with zeros:\n\n```bash\ndd if=/dev/zero of=dummy_file.img bs=1G count=1\n```\n\nAlternatively, use `fallocate` which is much faster as it just allocates the blocks without writing to them:\n\n```bash\nfallocate -l 1G dummy_file.img\n```"
+    },
+    {
+        "instruction": "How do I list the files in a directory sorted by modification time?",
+        "response": "Use the `ls` command with the `-t` flag. This sorts files by modification time, with the newest first.\n\n```bash\nls -lt\n```\n\nThe `-l` flag is added for a long-format listing, which makes it easier to see the timestamps. To reverse the sort order (oldest first), add the `-r` flag:\n\n```bash\nls -ltr\n```"
+    },
+    {
+        "instruction": "How to clean up untracked files in git?",
+        "response": "The `git clean` command is used to remove untracked files from your working directory.\n\nFirst, do a dry run to see what will be deleted:\n\n```bash\ngit clean -n\n```\n\nTo remove untracked files:\n\n```bash\ngit clean -f\n```\n\nTo remove untracked directories as well, use the `-d` flag:\n\n```bash\ngit clean -fd\n```"
+    },
+    {
+        "instruction": "How to get the exit code of the last command?",
+        "response": "The exit code of the previously executed command is stored in the special shell variable `$?`.\n\n```bash\nls /nonexistent_directory\necho \"The exit code was: $?\"\n```\n\nBy convention, an exit code of `0` means the command succeeded, and any non-zero value indicates an error."
+    },
+    {
+        "instruction": "How do I find out my user ID and group ID?",
+        "response": "Use the `id` command. When run without arguments, it displays information for the current user.\n\n```bash\nid\n```\n\nThe output will show your UID (user ID), GID (primary group ID), and all the groups you belong to."
+    },
+    {
+        "instruction": "How to create a tar archive of a directory, excluding certain files or directories?",
+        "response": "You can use the `--exclude` option with the `tar` command.\n\nTo create a `tar.gz` archive of `/path/to/project` but exclude the `node_modules` directory and all `.log` files:\n\n```bash\ntar -czvf backup.tar.gz --exclude='node_modules' --exclude='*.log' /path/to/project\n```"
+    },
+    {
+        "instruction": "How can I automatically answer 'yes' to a command prompt?",
+        "response": "You can use the `yes` command, which repeatedly outputs 'y' (or any specified string) followed by a newline. Pipe its output to the command that requires confirmation.\n\n```bash\nyes | sudo apt-get install <package_name>\n```\n\nAlternatively, many commands have a specific flag for this, such as `-y` or `--assume-yes`, which is generally safer:\n\n```bash\nsudo apt-get install -y <package_name>\n```"
+    },
+    {
+        "instruction": "How to see which process is using a specific file?",
+        "response": "The `lsof` (list open files) command can be used to see which process has a file open.\n\n```bash\nlsof /path/to/your/file\n```\n\nIf you see no output, it means no process currently has that file open."
+    },
+    {
+        "instruction": "How to list files sorted by size?",
+        "response": "Use the `ls` command with the `-S` flag to sort files by size, largest first.\n\nFor a more readable output, combine it with `-l` (long format) and `-h` (human-readable sizes).\n\n```bash\nls -lhS\n```\n\nTo reverse the sort (smallest first), add the `-r` flag:\n\n```bash\nls -lhSr\n```"
+    },
+    {
+        "instruction": "How do I create a Python 3 virtual environment?",
+        "response": "To create a virtual environment for Python 3, use the built-in `venv` module.\n\n```bash\npython3 -m venv name_of_my_env\n```\n\nThis will create a directory called `name_of_my_env` containing a new Python environment. You can then activate it using `source name_of_my_env/bin/activate`."
+    },
+    {
+        "instruction": "How to grep for a whole word?",
+        "response": "To make `grep` match only whole words, use the `-w` option.\n\n```bash\ngrep -w 'error' logfile.txt\n```\n\nThis will match lines containing the word 'error' but not 'error_code' or 'errors'."
+    },
+    {
+        "instruction": "How to get just the filename from a path in bash?",
+        "response": "You can use the `basename` command to strip the directory and suffix from a filename.\n\n```bash\npath=\"/home/user/document.txt\"\nbasename \"$path\"\n```\n\nThis will output `document.txt`. You can also remove a specific suffix:\n\n```bash\nbasename \"$path\" .txt\n```\nThis would output `document`."
+    },
+    {
+        "instruction": "How to list all running services under systemd?",
+        "response": "To list all active units (including services) that `systemd` is currently managing, use `systemctl`.\n\n```bash\nsystemctl list-units --type=service --state=running\n```\n\nTo list all installed service units, whether they are running or not:\n\n```bash\nsystemctl list-unit-files --type=service\n```"
+    },
+    {
+        "instruction": "How do I add a directory to my PATH?",
+        "response": "To temporarily add a directory to your `PATH` for the current shell session, you can export it:\n\n```bash\nexport PATH=\"/path/to/your/dir:$PATH\"\n```\n\nTo make this change permanent, add that `export` line to your shell's configuration file, such as `~/.bashrc` or `~/.zshrc`. After adding it, you'll need to run `source ~/.bashrc` or open a new terminal for the change to take effect."
+    },
+    {
+        "instruction": "How can I run multiple commands in one line?",
+        "response": "You can run multiple commands sequentially by separating them with a semicolon (`;`). The shell will execute them in order, regardless of whether the previous command succeeded or failed.\n\n```bash\ncd /my/directory; ls -l; echo \"Done\"\n```\n\nTo run the next command only if the previous one succeeds, use a double ampersand (`&&`).\n\n```bash\nmkdir new_dir && cd new_dir\n```"
+    },
+    {
+        "instruction": "How to see the routing table on Linux?",
+        "response": "You can use the `ip route` command or the older `netstat -r` command to display the kernel's IP routing table.\n\nUsing `ip` (recommended):\n\n```bash\nip route show\n```\n\nUsing `netstat`:\n\n```bash\nnetstat -r\n```"
+    },
+    {
+        "instruction": "How to show only the lines that match a pattern with grep?",
+        "response": "The default behavior of `grep` is to show only the lines that match the specified pattern. Simply provide the pattern and the file.\n\n```bash\ngrep \"Error\" application.log\n```\n\nIf you want to extract only the matching part of the line (not the whole line), you can use the `-o` option.\n\n```bash\ngrep -o \"[0-9]{4,}\" data.txt\n```"
+    },
+    {
+        "instruction": "How to find out which distribution of Linux I am using?",
+        "response": "There are several ways to check your Linux distribution.\n\nA common method is to view the contents of the `/etc/os-release` file:\n\n```bash\ncat /etc/os-release\n```\n\nAnother command that often works is `lsb_release`:\n\n```bash\nlsb_release -a\n```"
+    },
+    {
+        "instruction": "How do I create a requirements.txt file for my Python project?",
+        "response": "If you are using a virtual environment (`venv`) where all your project's dependencies are installed, you can generate a `requirements.txt` file using `pip freeze`.\n\nFirst, activate your virtual environment:\n\n```bash\nsource your-venv/bin/activate\n```\n\nThen, run this command:\n\n```bash\npip freeze > requirements.txt\n```"
+    },
+    {
+        "instruction": "How to create a `bzip2` compressed tar archive?",
+        "response": "To create a `bzip2` compressed tar archive (usually with a `.tar.bz2` or `.tbz2` extension), use the `-j` flag with the `tar` command.\n\n```bash\ntar -cjvf archive.tar.bz2 /path/to/directory\n```\n\n- `c`: create archive\n- `j`: compress with bzip2\n- `v`: verbose output\n- `f`: specify filename"
+    },
+    {
+        "instruction": "How to execute a string as a command in bash?",
+        "response": "You can use the `eval` command to execute a string as if you typed it directly into the shell.\n\n```bash\ncommand_string=\"ls -l /home\"\neval $command_string\n```\n\nBe very careful with `eval`, as executing strings from untrusted sources can be a major security risk."
+    },
+    {
+        "instruction": "How to check if a bash variable is set?",
+        "response": "You can use the `-v` test operator inside `[[ ... ]]` or the `-z` parameter expansion modifier.\n\nUsing `[[ -v ... ]]` (more readable):\n\n```bash\nif [[ -v MY_VAR ]]; then\n    echo \"MY_VAR is set.\"\nfi\n```\n\nUsing parameter expansion (more portable):\n\n```bash\nif [ -n \"${MY_VAR+x}\" ]; then\n    echo \"MY_VAR is set.\"\nfi\n```"
+    },
+    {
+        "instruction": "How do I remove the first line of a file?",
+        "response": "You can use `sed` to delete the first line and print the result. To save the changes back to the file, use the `-i` (in-place) option.\n\n```bash\nsed -i '1d' yourfile.txt\n```\n\nThis command tells `sed` to perform the action `1d` (delete line 1) on the file `yourfile.txt`."
+    },
+    {
+        "instruction": "How to get a recursive directory listing showing a tree structure?",
+        "response": "The `tree` command is designed specifically for this purpose. You may need to install it first (`sudo apt-get install tree`).\n\nTo show the tree for the current directory:\n\n```bash\ntree\n```\n\nTo show a tree for a specific path:\n\n```bash\ntree /path/to/directory\n```"
+    },
+    {
+        "instruction": "How do I ignore whitespace differences with `diff`?",
+        "response": "The `diff` command has several flags to ignore whitespace.\n\nTo ignore changes in the amount of whitespace, use `-w` or `--ignore-all-space`.\n\n```bash\ndiff -w file1.txt file2.txt\n```\n\nTo ignore changes whose lines are all blank, use `-B` or `--ignore-blank-lines`."
+    },
+    {
+        "instruction": "How to use `grep` to show lines that DO NOT match a pattern?",
+        "response": "Use the `-v` or `--invert-match` option with `grep`. This will select non-matching lines.\n\nFor example, to show all lines in a log file that do not contain the word \"DEBUG\":\n\n```bash\ngrep -v \"DEBUG\" application.log\n```"
+    },
+    {
+        "instruction": "How do I run a command without it being saved in history?",
+        "response": "In Bash, if you prefix a command with a space, it will not be saved to the command history, provided the `HISTCONTROL` environment variable is set to `ignorespace` or `ignoreboth`. You can set it in your `.bashrc`:\n\n```bash\nexport HISTCONTROL=ignoreboth\n```\n\nThen, in a new shell session, you can run a command like this:\n\n```bash\n my-secret-command\n```"
+    },
+    {
+        "instruction": "How to see which user is logged in?",
+        "response": "There are several commands to see who is logged in.\n\n- `who`: Shows who is currently logged on.\n  ```bash\n  who\n  ```\n- `w`: A more detailed version of `who`, showing what each user is doing.\n  ```bash\n  w\n  ```\n- `whoami`: Shows the username of the current user.\n  ```bash\n  whoami\n  ```"
+    },
+    {
+        "instruction": "How can I find out the inode number of a file?",
+        "response": "Use the `ls` command with the `-i` (inode) option. It will print the inode number of each file in the first column of the output.\n\n```bash\nls -i filename.txt\n```\n\nTo see inodes for all files in a directory:\n\n```bash\nls -li\n```"
+    },
+    {
+        "instruction": "How to change the timestamp of a file?",
+        "response": "The `touch` command can be used to update the access and modification times of a file to the current time. If the file doesn't exist, it will be created.\n\n```bash\ntouch file.txt\n```\n\nTo set a specific timestamp, use the `-d` option with a date string:\n\n```bash\ntouch -d \"2023-01-01 12:30:00\" file.txt\n```"
+    },
+    {
+        "instruction": "How to count the number of words in a file?",
+        "response": "Use the `wc` (word count) command with the `-w` flag.\n\n```bash\nwc -w filename.txt\n```\n\nThis will output the number of words followed by the filename."
+    },
+    {
+        "instruction": "How to check a script for syntax errors without running it?",
+        "response": "For Bash scripts, you can use the `-n` (no-exec) option, which tells Bash to read the script and check for syntax errors but not to execute it.\n\n```bash\nbash -n ./your_script.sh\n```\n\nIf there are no syntax errors, the command will produce no output. You can also use a dedicated linter like `shellcheck` for more thorough analysis."
+    },
+    {
+        "instruction": "How do I extract a `.tar.bz2` file?",
+        "response": "To extract a `bzip2` compressed tar archive, use the `tar` command with the `-j` (bzip2) and `-x` (extract) flags.\n\n```bash\ntar -xjvf archive.tar.bz2\n```\n\n- `x`: extract files from an archive\n- `j`: filter the archive through bzip2\n- `v`: verbosely list files processed\n- `f`: use archive file"
+    },
+    {
+        "instruction": "How can I schedule a command to run only once at a later time?",
+        "response": "You can use the `at` command to schedule a one-time job for a future time. You may need to install it and ensure its daemon (`atd`) is running.\n\n```bash\nat 10:30 PM\n```\n\nAfter running this, you'll enter an interactive prompt where you can type the commands to be executed. Press `Ctrl+D` to finish and save the job."
+    },
+    {
+        "instruction": "How to get the directory name from a file path?",
+        "response": "You can use the `dirname` command to strip the last component from a given file path.\n\n```bash\npath=\"/home/user/documents/report.txt\"\ndirname \"$path\"\n```\n\nThis will output `/home/user/documents`."
+    },
+    {
+        "instruction": "How do I list open files for a specific process?",
+        "response": "You can use `lsof` (list open files) with the `-p` flag followed by the process ID (PID).\n\nFirst, find the PID of the process (e.g., `pidof nginx`). Then, use `lsof`:\n\n```bash\nlsof -p <PID>\n```\n\nThis will show you all files, libraries, and network connections opened by that process."
+    },
+    {
+        "instruction": "How to show `grep` results with context (lines before and after)?",
+        "response": "You can use the `-A`, `-B`, and `-C` options with `grep` to show context around matching lines.\n\n- `-A num`: Show `num` lines of trailing context (After).\n- `-B num`: Show `num` lines of leading context (Before).\n- `-C num`: Show `num` lines of surrounding context (Context).\n\nExample to show 2 lines before and 2 lines after the match:\n\n```bash\ngrep -C 2 'error' logfile.txt\n```"
+    },
+    {
+        "instruction": "How to create a file with a specific size?",
+        "response": "You can use `fallocate` for instantly creating a large file, or `dd` for more compatibility.\n\nUsing `fallocate` (very fast):\n\n```bash\nfallocate -l 100M largefile.bin\n```\n\nUsing `dd` (writes data, so it's slower):\n\n```bash\ndd if=/dev/zero of=largefile.bin bs=1M count=100\n```\nThis command reads 100 blocks of 1MB from `/dev/zero` and writes them to the output file."
+    },
+    {
+        "instruction": "How do I check my default Java version?",
+        "response": "To check the version of the default Java runtime environment, use the `-version` option.\n\n```bash\njava -version\n```\n\nTo check the Java compiler version, use `javac`:\n\n```bash\njavac -version\n```"
+    },
+    {
+        "instruction": "How do I find files larger than a certain size?",
+        "response": "Use the `find` command with the `-size` option. You can specify the size in blocks, kilobytes (k), megabytes (M), or gigabytes (G).\n\nTo find files larger than 100 megabytes in the current directory and subdirectories:\n\n```bash\nfind . -type f -size +100M\n```\n\nThe `+` sign means 'greater than'."
+    },
+    {
+        "instruction": "How to run a bash script in debug mode?",
+        "response": "You can run a Bash script in debug mode using the `-x` option. This will cause the shell to print each command and its arguments to standard error before it is executed.\n\n```bash\nbash -x your_script.sh\n```\n\nAlternatively, you can add `set -x` at the beginning of your script to enable debug mode from that point on, and `set +x` to disable it."
+    },
+    {
+        "instruction": "How do I see the manual page for a command?",
+        "response": "Use the `man` command followed by the name of the command you want to learn about.\n\n```bash\nman ls\n```\n\nThis will open the manual (man page) for the `ls` command. You can navigate with the arrow keys and quit by pressing `q`."
+    },
+    {
+        "instruction": "How to get the number of CPU cores?",
+        "response": "You can use several commands to find the number of CPU cores.\n\n- `nproc`: Prints the number of processing units available.\n  ```bash\n  nproc\n  ```\n- `lscpu`: Lists CPU architecture information. Look for the 'CPU(s)' line.\n  ```bash\n  lscpu\n  ```\n- `grep`: You can also grep the `/proc/cpuinfo` file.\n  ```bash\n  grep -c ^processor /proc/cpuinfo\n  ```"
+    },
+    {
+        "instruction": "How to make git ignore files that are already committed?",
+        "response": "If you have a file that was previously tracked by Git and you now want to ignore it, you must first remove it from the index (without deleting it from your disk) and then add its pattern to `.gitignore`.\n\n1.  Remove the file from the Git index:\n    ```bash\n    git rm --cached <file_name>\n    ```\n\n2.  Add the file path or pattern to your `.gitignore` file.\n    ```\n    my_log_file.log\n    ```\n\n3.  Commit the changes:\n    ```bash\n    git commit -m \"Stop tracking file_name\"\n    ```"
+    }
+]
