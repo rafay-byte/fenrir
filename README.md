@@ -1,125 +1,147 @@
-# 🐺 Fenrir — LLM Fine-Tuning & Evaluation Framework
+<div align="center">
 
-<p align="center">
-  <strong>A framework for fine-tuning and evaluating large language models using LoRA adapters, with comprehensive benchmarking and evaluation tools.</strong>
+# 🐺 Fenrir
+
+### LLM Fine-Tuning & Evaluation Framework
+
+<p>
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white"/>
+<img src="https://img.shields.io/badge/HuggingFace-FFD21E?style=flat&logo=huggingface&logoColor=black"/>
+<img src="https://img.shields.io/badge/LoRA-8B5CF6?style=flat"/>
+<img src="https://img.shields.io/badge/Transformers-FF6F00?style=flat"/>
 </p>
 
-<p align="center">
-  ![Python](https://img.shields.io/badge/Language-Python-3776AB?style=for-the-badge&logo=python) ![GitHub](https://img.shields.io/badge/GitHub-rafay--byte-181717?style=for-the-badge&logo=github) ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white) ![HuggingFace](https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=white)
-</p>
+A framework for fine-tuning and evaluating large language models using LoRA adapters,<br/>with comprehensive benchmarking to compare base vs. fine-tuned performance.
+
+</div>
 
 ---
 
-## 📋 Overview
+## Overview
 
-**Fenrir — LLM Fine-Tuning & Evaluation Framework** is a project by [Abdul Rafay Khalid (@rafay-byte)](https://github.com/rafay-byte).
+Fenrir provides an end-to-end pipeline for LLM fine-tuning and evaluation. It enables you to take a base language model, fine-tune it using parameter-efficient LoRA adapters on custom datasets, and then rigorously compare the fine-tuned model against the original using structured evaluation benchmarks.
 
-A framework for fine-tuning and evaluating large language models using LoRA adapters, with comprehensive benchmarking and evaluation tools.
+The framework produces detailed evaluation reports in Markdown, making it straightforward to document and compare model performance across runs.
 
----
+## Architecture
 
-## ✨ Features
+```
+┌─────────────────────────────────────────────────────┐
+│                    Fenrir Pipeline                    │
+│                                                       │
+│  ┌──────────┐    ┌──────────────┐    ┌────────────┐  │
+│  │  Custom   │───▶│  LoRA Fine-  │───▶│  Fine-Tuned│  │
+│  │  Dataset  │    │   Tuning     │    │   Model    │  │
+│  │  (data/)  │    │  (train/)    │    │ (models/)  │  │
+│  └──────────┘    └──────────────┘    └─────┬──────┘  │
+│                                            │          │
+│                                            ▼          │
+│  ┌──────────┐    ┌──────────────┐    ┌────────────┐  │
+│  │   Base   │───▶│  Evaluation  │───▶│  Report    │  │
+│  │  Model   │    │   Suite      │    │  (.md)     │  │
+│  └──────────┘    └──────────────┘    └────────────┘  │
+│                                                       │
+│  evaluate_base.py ←→ evaluate_lora.py                │
+│  eval_base.md     ←→ eval_lora.md                    │
+└─────────────────────────────────────────────────────┘
+```
 
-- 🐺 LoRA-based model fine-tuning
-- 🐺 Base vs fine-tuned model evaluation
-- 🐺 Comprehensive benchmarking suite
-- 🐺 Custom dataset support
-- 🐺 Detailed evaluation reports
+## Features
 
----
+- **LoRA Fine-Tuning** — Parameter-efficient fine-tuning using Low-Rank Adaptation, minimizing GPU memory requirements while preserving model quality
+- **Base vs. Fine-Tuned Evaluation** — Side-by-side comparison with structured evaluation scripts (`evaluate_base.py` / `evaluate_lora.py`)
+- **Evaluation Reports** — Auto-generated Markdown reports (`eval_base.md` / `eval_lora.md`) documenting model responses and quality metrics
+- **Custom Dataset Support** — Bring your own training data in the `data/` directory
+- **Agent-Based Interaction** — `agent.py` provides an interactive interface for testing fine-tuned models
+- **Prompt Management** — Centralized prompt templates in `prompts.py` for consistent evaluation
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Component | Technology |
-|-----------|-----------|
+|:---|:---|
 | **Language** | Python |
-| **PyTorch** | 🔥 Framework/Library |
-| **Hugging Face Transformers** | 🤗 Framework/Library |
+| **Deep Learning** | PyTorch |
+| **LLM Framework** | HuggingFace Transformers |
+| **Fine-Tuning** | LoRA + QLoRA (PEFT) |
+| **Model Format** | Adapter weights (models/) |
 
+## Training Configuration
 
----
+Details from the actual fine-tuning run documented in [`report.md`](report.md):
 
-## 📁 Project Structure
+| Parameter | Value |
+|:---|:---|
+| **Base Model** | TinyLlama-1.1B-Chat-v1.0 |
+| **Method** | LoRA + QLoRA |
+| **LoRA Config** | r=8, alpha=16, dropout=0.05 |
+| **Target Layers** | q_proj, v_proj |
+| **Dataset** | 150+ CLI Q&A pairs (Git, Bash, Python, grep, tar) |
+| **Epochs** | 1 |
+| **Token Limit** | 512 |
+| **Batch Size** | 2 |
+| **Hardware** | RTX 3050 6GB GPU (~20 min training) |
+
+## Project Structure
 
 ```
 fenrir/
-├── 📄 agent.py
-├── 📁 data/
-├── 📄 eval_base.md
-├── 📄 eval_lora.md
-├── 📄 evaluate_base.py
-├── 📄 evaluate_lora.py
-├── 📁 logs/
-├── 📁 models/
-├── 📄 prompts.py
-├── 📄 README.md
-├── 📄 report.md
-├── 📄 test.py
-├── 📄 test2.py
-└── 📁 train/
+├── agent.py              # Interactive agent for model testing
+├── prompts.py            # Prompt templates for evaluation
+├── evaluate_base.py      # Evaluate base (pre-fine-tuning) model
+├── evaluate_lora.py      # Evaluate LoRA fine-tuned model
+├── eval_base.md          # Base model evaluation results
+├── eval_lora.md          # Fine-tuned model evaluation results
+├── report.md             # Comprehensive comparison report
+├── test.py               # Test scripts
+├── test2.py              # Additional test scripts
+├── data/                 # Training datasets
+├── train/                # Training scripts and configs
+└── models/               # Saved model checkpoints & LoRA adapters
 ```
 
----
+## Usage
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Python 3.8+** (or relevant runtime)
-- **pip** package manager
-- **Git** for version control
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/rafay-byte/fenrir.git
-   cd fenrir
-   ```
-
-2. **Create a virtual environment (recommended):**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate    # Linux/Mac
-   venv\Scripts\activate       # Windows
-   ```
-
-### Usage
-
-Refer to the project structure above and run the main script:
 ```bash
-python app.py    # or the main entry point
+# Clone the repository
+git clone https://github.com/rafay-byte/fenrir.git
+cd fenrir
+
+# Fine-tune a model with LoRA
+# (configure your base model and dataset in train/)
+python train/train_lora.py
+
+# Evaluate base model
+python evaluate_base.py
+
+# Evaluate fine-tuned model
+python evaluate_lora.py
+
+# Interactive testing with the agent
+python agent.py
 ```
 
----
+## Evaluation
 
-## 🤝 Contributing
+The framework generates side-by-side evaluation reports:
 
-Contributions, issues, and feature requests are welcome!
+- **[`eval_base.md`](eval_base.md)** — Baseline model responses and metrics
+- **[`eval_lora.md`](eval_lora.md)** — Fine-tuned model responses and metrics
+- **[`report.md`](report.md)** — Comprehensive comparison report (TinyLlama-1.1B, LoRA+QLoRA, RTX 3050)
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+This enables direct, reproducible comparison of how fine-tuning affects model behavior on specific tasks.
 
----
+## Contributing
 
-## 📝 License
+Contributions, issues, and feature requests are welcome. Feel free to check the issues page or submit a pull request.
 
-This project is provided as-is for educational and development purposes.
+## License
 
----
-
-## 👤 Author
-
-**Abdul Rafay Khalid**
-
-- GitHub: [@rafay-byte](https://github.com/rafay-byte)
-- BS AI Student @ PAF-IAST
+This project is open source and available under the standard MIT-compatible terms for educational and research purposes.
 
 ---
 
-<p align="center">
-  Made with ❤️ by <a href="https://github.com/rafay-byte">Abdul Rafay Khalid</a>
-</p>
+<div align="center">
+<sub>Developed by <a href="https://github.com/rafay-byte">Abdul Rafay Khalid</a> • BS AI Student @ PAF-IAST</sub>
+</div>
+
